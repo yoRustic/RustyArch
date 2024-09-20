@@ -6,9 +6,9 @@ else
     echo -e "$CWR - Yay was NOT located"
     read -n1 -rep $'[\e[1;33mACTION\e[0m] - Would you like to install yay (y,n) ' INSTYAY
     if [[ $INSTYAY == "Y" || $INSTYAY == "y" ]]; then
-        git clone https://aur.archlinux.org/yay.git &>> $INSTLOG
+        git clone https://aur.archlinux.org/yay.git 
         cd yay
-        makepkg -si --noconfirm &>> ../$INSTLOG
+        makepkg -si --noconfirm 
         cd ..
         
     else
