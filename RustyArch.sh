@@ -32,7 +32,7 @@ fi
 ### Install all of the packages ####
 read -n1 -rep 'Would you like to install the packages? (y,n)' INST
 if [[ $INST == "Y" || $INST == "y" ]]; then
-    yay -S --noconfirm hyprland-bin kitty waybar-hyprland \
+    yay -S --noconfirm hyprland kitty waybar-hyprland \
     swaybg rofi mako thunar \
     ttf-jetbrains-mono-nerd noto-fonts-emoji \
     polkit-gnome python-requests zsh \
