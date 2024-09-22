@@ -89,11 +89,16 @@ if [[ $STAR == "Y" || $STAR == "y" ]]; then
 fi
 
 ### Script is done ###
-echo -e "Script had completed.\n"
-echo -e "You can start Hyprland by typing Hyprland (note the capital H).\n"
-read -n1 -rep 'Would you like to start Hyprland now? (y,n)' HYP
+echo -e "$CNT - Script had completed!"
+if [[ "$ISNVIDIA" == true ]]; then 
+    echo -e "$CAT - Since we attempted to setup an Nvidia GPU the script will now end and you should reboot.
+    Please type 'reboot' at the prompt and hit Enter when ready."
+    exit
+fi
+
+read -rep $'[\e[1;33mACTION\e[0m] - Would you like to start Hyprland now? (y,n) ' HYP
 if [[ $HYP == "Y" || $HYP == "y" ]]; then
-    exec Hyprland
+    exec sudo systemctl start sddm &>> $INSTLOG
 else
     exit
 fi
