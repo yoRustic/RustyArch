@@ -1,14 +1,3 @@
-#software for nvidia GPU only
-nvidia_stage=(
-    linux-headers 
-    nvidia-dkms 
-    nvidia-settings 
-    libva 
-    libva-nvidia-driver-git
-)
-
-
-
 #### Check for yay ####
 ISYAY=/sbin/yay
 if [ -f "$ISYAY" ]; then 
@@ -59,26 +48,6 @@ if [[ $INST == "Y" || $INST == "y" ]]; then
     # Clean out other portals
     echo -e "Cleaning out conflicting xdg portals...\n"
     yay -R --noconfirm xdg-desktop-portal-gnome xdg-desktop-portal-gtk
-fi
-
-# find the Nvidia GPU
-if lspci -k | grep -A 2 -E "(VGA|3D)" | grep -iq nvidia; then
-    ISNVIDIA=true
-else
-    ISNVIDIA=false
-fi
-
-# Setup Nvidia if it was found
-if [[ "$ISNVIDIA" == true ]]; then
-    echo -e "$CNT - Nvidia GPU support setup stage, this may take a while..."
-    for SOFTWR in ${nvidia_stage[@]}; do
-        install_software $SOFTWR
-    done
-
-    # update config
-    sudo sed -i 's/MODULES=()/MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' /etc/mkinitcpio.conf
-    sudo mkinitcpio --config /etc/mkinitcpio.conf --generate /boot/initramfs-custom.img
-    echo -e "options nvidia-drm modeset=1" | sudo tee -a /etc/modprobe.d/nvidia.conf &>> $INSTLOG
 fi
 
 ### Install the ohmyzsh shell ###
